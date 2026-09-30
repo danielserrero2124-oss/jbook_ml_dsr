@@ -1,0 +1,1985 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>7. Comparación de resultados y reflexión crítica &#8212; Proyecto Integrador de Aprendizaje Automático – Lending Club</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/autor.css?v=483c0dd5" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="../_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07_comparacion_resultados';</script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" />
+    <link rel="prev" title="6. Interpretabilidad con LIME" href="06_lime.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logoUN.png" class="logo__image only-light" alt="Proyecto Integrador de Aprendizaje Automático – Lending Club - Home"/>
+    <script>document.write(`<img src="../_static/logoUN.png" class="logo__image only-dark" alt="Proyecto Integrador de Aprendizaje Automático – Lending Club - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><!-- Tarjeta del autor en la barra lateral izquierda (visible en todas las páginas del libro) -->
+<div class="tarjeta-autor">
+  <img src="../_static/foto_author_DSR_sidebar.png" alt="Daniel Serrano Romero" class="tarjeta-autor__foto">
+  <div class="tarjeta-autor__nombre">Daniel Serrano Romero</div>
+  <div class="tarjeta-autor__detalle">Maestría en Matemáticas</div>
+  <div class="tarjeta-autor__detalle">Machine Learning</div>
+</div></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Búsqueda</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Proyecto Integrador de Aprendizaje Automático
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_eda.html">1. Análisis exploratorio de datos (EDA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_particion_preprocesamiento_sklearn.html">2. Partición común y preprocesamiento con scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_modelado_sklearn.html">3. Modelado con scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_preprocesamiento_modelado_pyspark.html">4. Preprocesamiento y modelado con PySpark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_comparacion_estadistica.html">5. Comparación estadística de los modelos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_lime.html">6. Interpretabilidad con LIME</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Comparación de resultados y reflexión crítica</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/danielserrero2124-oss/jbook_ml_dsr" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07_comparacion_resultados.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="claro/oscuro" aria-label="claro/oscuro" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7. Comparación de resultados y reflexión crítica</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-comparativa-de-metricas-test-umbral-por-defecto-y-f1-con-el-umbral-elegido-en-train">Tabla comparativa de métricas (test, umbral por defecto) y F1 con el umbral elegido en train</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiempos-de-computo-por-modelo-y-entorno-segundos">Tiempos de cómputo por modelo y entorno (segundos)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc-una-figura-por-entorno">Curvas ROC (una figura por entorno)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-de-delong-auc-con-ic-95-comparaciones-entre-entornos-y-mapas-de-calor">Prueba de DeLong: AUC con IC 95 %, comparaciones entre entornos y mapas de calor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-de-las-tres-pruebas-delong-mcnemar-bootstrap-pareado">Resumen de las tres pruebas (DeLong, McNemar, bootstrap pareado)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-auxiliar-a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">Experimento auxiliar: ¿a partir de qué volumen PySpark supera a scikit-learn?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-auxiliar-efecto-de-las-condiciones-obligatorias-de-spark">Experimento auxiliar: efecto de las condiciones obligatorias de Spark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflexion-critica">Reflexión crítica</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-entorno-fue-mas-rapido-y-por-que">¿Qué entorno fue más rápido y por qué?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cual-fue-mas-preciso">¿Cuál fue más preciso?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-diferencias-de-auc-son-significativas-tras-holm-y-cuales-son-relevantes">¿Qué diferencias de AUC son significativas tras Holm y cuáles son relevantes?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-diferencias-de-implementacion-explican-las-discrepancias">¿Qué diferencias de implementación explican las discrepancias?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-delong-y-complemento-de-mcnemar-y-bootstrap-coinciden">Limitaciones de DeLong y complemento de McNemar y bootstrap. ¿Coinciden?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">¿A partir de qué volumen PySpark supera a scikit-learn?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-aporta-lime-y-cuales-son-sus-limitaciones-en-entornos-distribuidos">¿Qué aporta LIME y cuáles son sus limitaciones en entornos distribuidos?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-efecto-tuvo-cada-condicion-obligatoria-en-el-rendimiento">¿Qué efecto tuvo cada condición obligatoria en el rendimiento?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="comparacion-de-resultados-y-reflexion-critica">
+<h1>7. Comparación de resultados y reflexión crítica<a class="headerlink" href="#comparacion-de-resultados-y-reflexion-critica" title="Link to this heading">#</a></h1>
+<p>Sección 5.6 y entregable (sección 6) del enunciado: tabla comparativa de métricas y
+tiempos, curvas ROC por entorno, comparación de tiempos, mapas de calor de DeLong,
+resumen de las tres pruebas estadísticas, un experimento auxiliar de escalabilidad y la
+reflexión crítica final.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>  <span class="c1"># Permite modificar la ruta de búsqueda de módulos</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">".."</span><span class="p">)</span>  <span class="c1"># Agrega la raíz del proyecto</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>  <span class="c1"># Medición de tiempos</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># Cálculo numérico</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>  <span class="c1"># Manipulación de datos</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>  <span class="c1"># Gráficos</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>  <span class="c1"># Muestra figuras guardadas</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_curve</span>  <span class="c1"># Curva ROC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span> <span class="k">as</span> <span class="n">cfg</span>  <span class="c1"># Configuración central</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.utilidades</span><span class="w"> </span><span class="kn">import</span> <span class="n">guardar_figura</span><span class="p">,</span> <span class="n">info_hardware</span><span class="p">,</span> <span class="n">leer_json</span>  <span class="c1"># Utilidades</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.float_format"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># Formato numérico</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.max_columns"</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>  <span class="c1"># Muestra hasta 40 columnas</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">"display.width"</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>  <span class="c1"># Ancho de impresión</span>
+<span class="n">met</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"scikit-learn"</span><span class="p">:</span> <span class="n">leer_json</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">RUTA_METRICAS_SK</span><span class="p">)[</span><span class="s2">"modelos"</span><span class="p">],</span> <span class="s2">"PySpark"</span><span class="p">:</span> <span class="n">leer_json</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">RUTA_METRICAS_SP</span><span class="p">)[</span><span class="s2">"modelos"</span><span class="p">]}</span>  <span class="c1"># Métricas de ambos entornos</span>
+<span class="n">prep_t</span> <span class="o">=</span> <span class="n">leer_json</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">RUTA_TIEMPOS_PREP</span><span class="p">)</span>  <span class="c1"># Tiempos de preprocesamiento</span>
+<span class="n">info_hardware</span><span class="p">()</span>  <span class="c1"># Hardware utilizado</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'sistema': 'Windows 10',
+ 'procesador': 'AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD',
+ 'nucleos_fisicos': 6,
+ 'nucleos_logicos': 12,
+ 'ram_total_gb': 13.8,
+ 'ram_disponible_gb': 6.1,
+ 'python': '3.9.25'}
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tabla-comparativa-de-metricas-test-umbral-por-defecto-y-f1-con-el-umbral-elegido-en-train">
+<h2>Tabla comparativa de métricas (test, umbral por defecto) y F1 con el umbral elegido en train<a class="headerlink" href="#tabla-comparativa-de-metricas-test-umbral-por-defecto-y-f1-con-el-umbral-elegido-en-train" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Una fila por modelo y entorno</span>
+<span class="k">for</span> <span class="n">entorno</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Recorre los entornos</span>
+    <span class="k">for</span> <span class="n">modelo</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="p">:</span>  <span class="c1"># Recorre los modelos</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">modelo</span><span class="p">]</span>  <span class="c1"># Resultados del modelo</span>
+        <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"modelo"</span><span class="p">:</span> <span class="n">modelo</span><span class="p">,</span> <span class="s2">"entorno"</span><span class="p">:</span> <span class="n">entorno</span><span class="p">,</span>  <span class="c1"># Identificación</span>
+                      <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">"metricas"</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="s2">"precision"</span><span class="p">,</span> <span class="s2">"recall"</span><span class="p">,</span> <span class="s2">"f1"</span><span class="p">,</span> <span class="s2">"roc_auc"</span><span class="p">]},</span>  <span class="c1"># Métricas con umbral por defecto</span>
+                      <span class="s2">"f1_umbral_train"</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">"metricas_umbral"</span><span class="p">][</span><span class="s2">"f1"</span><span class="p">],</span> <span class="s2">"recall_umbral_train"</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">"metricas_umbral"</span><span class="p">][</span><span class="s2">"recall"</span><span class="p">],</span>  <span class="c1"># Métricas con umbral de train</span>
+                      <span class="s2">"mejores_parametros"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"mejores_parametros"</span><span class="p">])})</span>  <span class="c1"># Hiperparámetros ganadores</span>
+<span class="n">metr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"modelo"</span><span class="p">,</span> <span class="s2">"entorno"</span><span class="p">])</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>  <span class="c1"># Tabla ordenada</span>
+<span class="n">metr</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>accuracy</th>
+      <th>precision</th>
+      <th>recall</th>
+      <th>f1</th>
+      <th>roc_auc</th>
+      <th>f1_umbral_train</th>
+      <th>recall_umbral_train</th>
+      <th>mejores_parametros</th>
+    </tr>
+    <tr>
+      <th>modelo</th>
+      <th>entorno</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">LogisticRegression</th>
+      <th>PySpark</th>
+      <td>0.8028</td>
+      <td>0.5515</td>
+      <td>0.0647</td>
+      <td>0.1158</td>
+      <td>0.7141</td>
+      <td>0.4309</td>
+      <td>0.6361</td>
+      <td>{'regParam': 1e-05}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.8028</td>
+      <td>0.5522</td>
+      <td>0.0641</td>
+      <td>0.1149</td>
+      <td>0.7141</td>
+      <td>0.4311</td>
+      <td>0.6308</td>
+      <td>{'C': 0.009291538753149831}</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">DecisionTree</th>
+      <th>PySpark</th>
+      <td>0.8013</td>
+      <td>0.5185</td>
+      <td>0.0629</td>
+      <td>0.1122</td>
+      <td>0.7018</td>
+      <td>0.4202</td>
+      <td>0.6476</td>
+      <td>{'maxDepth': 10}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.8016</td>
+      <td>0.5239</td>
+      <td>0.0659</td>
+      <td>0.1171</td>
+      <td>0.7043</td>
+      <td>0.4234</td>
+      <td>0.6101</td>
+      <td>{'max_depth': 10}</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">RandomForest</th>
+      <th>PySpark</th>
+      <td>0.8027</td>
+      <td>0.5807</td>
+      <td>0.0422</td>
+      <td>0.0786</td>
+      <td>0.7142</td>
+      <td>0.4287</td>
+      <td>0.5486</td>
+      <td>{'numTrees': 100, 'maxDepth': 15}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.8026</td>
+      <td>0.5802</td>
+      <td>0.0408</td>
+      <td>0.0762</td>
+      <td>0.7153</td>
+      <td>0.4292</td>
+      <td>0.5385</td>
+      <td>{'max_depth': 15, 'n_estimators': 100}</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">GradientBoosting</th>
+      <th>PySpark</th>
+      <td>0.8039</td>
+      <td>0.5562</td>
+      <td>0.0874</td>
+      <td>0.1510</td>
+      <td>0.7208</td>
+      <td>0.4373</td>
+      <td>0.6288</td>
+      <td>{'maxIter': 100, 'maxDepth': 5}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.8039</td>
+      <td>0.5710</td>
+      <td>0.0704</td>
+      <td>0.1254</td>
+      <td>0.7207</td>
+      <td>0.4377</td>
+      <td>0.6351</td>
+      <td>{'max_depth': 5, 'max_iter': 100}</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">LinearSVC</th>
+      <th>PySpark</th>
+      <td>0.8004</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.6793</td>
+      <td>0.4027</td>
+      <td>0.6994</td>
+      <td>{'regParam': 1e-05}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.8003</td>
+      <td>0.4924</td>
+      <td>0.0162</td>
+      <td>0.0314</td>
+      <td>0.5293</td>
+      <td>0.3325</td>
+      <td>0.9949</td>
+      <td>{'C': 0.9291538753149833}</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">NaiveBayes</th>
+      <th>PySpark</th>
+      <td>0.7203</td>
+      <td>0.3425</td>
+      <td>0.4365</td>
+      <td>0.3838</td>
+      <td>0.6795</td>
+      <td>0.4100</td>
+      <td>0.6560</td>
+      <td>{}</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>0.7206</td>
+      <td>0.3425</td>
+      <td>0.4344</td>
+      <td>0.3830</td>
+      <td>0.6792</td>
+      <td>0.4095</td>
+      <td>0.6551</td>
+      <td>{}</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="tiempos-de-computo-por-modelo-y-entorno-segundos">
+<h2>Tiempos de cómputo por modelo y entorno (segundos)<a class="headerlink" href="#tiempos-de-computo-por-modelo-y-entorno-segundos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Una fila por modelo y entorno</span>
+<span class="k">for</span> <span class="n">entorno</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Recorre los entornos</span>
+    <span class="n">clave</span> <span class="o">=</span> <span class="s2">"sklearn"</span> <span class="k">if</span> <span class="n">entorno</span> <span class="o">==</span> <span class="s2">"scikit-learn"</span> <span class="k">else</span> <span class="s2">"pyspark"</span>  <span class="c1"># Clave en el JSON de preprocesamiento</span>
+    <span class="k">for</span> <span class="n">modelo</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="p">:</span>  <span class="c1"># Recorre los modelos</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">modelo</span><span class="p">]</span>  <span class="c1"># Resultados del modelo</span>
+        <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"modelo"</span><span class="p">:</span> <span class="n">modelo</span><span class="p">,</span> <span class="s2">"entorno"</span><span class="p">:</span> <span class="n">entorno</span><span class="p">,</span>  <span class="c1"># Identificación</span>
+                      <span class="s2">"preprocesamiento (común)"</span><span class="p">:</span> <span class="n">prep_t</span><span class="p">[</span><span class="n">clave</span><span class="p">][</span><span class="s2">"total"</span><span class="p">],</span>  <span class="c1"># Tiempo de preprocesamiento del entorno</span>
+                      <span class="s2">"entrenamiento + CV"</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">"tiempo_entrenamiento_s"</span><span class="p">],</span>  <span class="c1"># Tiempo de entrenamiento con validación cruzada</span>
+                      <span class="s2">"predicción"</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s2">"tiempo_prediccion_s"</span><span class="p">],</span>  <span class="c1"># Tiempo de predicción</span>
+                      <span class="s2">"transferencia al driver"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"tiempo_transferencia_s"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)})</span>  <span class="c1"># Solo PySpark</span>
+<span class="n">tiempos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">"modelo"</span><span class="p">,</span> <span class="s2">"entorno"</span><span class="p">])</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>  <span class="c1"># Tabla ordenada</span>
+<span class="n">tiempos</span><span class="p">[</span><span class="s2">"total modelo"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tiempos</span><span class="p">[[</span><span class="s2">"entrenamiento + CV"</span><span class="p">,</span> <span class="s2">"predicción"</span><span class="p">,</span> <span class="s2">"transferencia al driver"</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Tiempo total por modelo</span>
+<span class="n">tiempos</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>preprocesamiento (común)</th>
+      <th>entrenamiento + CV</th>
+      <th>predicción</th>
+      <th>transferencia al driver</th>
+      <th>total modelo</th>
+    </tr>
+    <tr>
+      <th>modelo</th>
+      <th>entorno</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">LogisticRegression</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>27.0739</td>
+      <td>1.0978</td>
+      <td>0.9830</td>
+      <td>29.1546</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>63.3387</td>
+      <td>0.1419</td>
+      <td>0.0000</td>
+      <td>63.4806</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">DecisionTree</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>25.5156</td>
+      <td>0.5015</td>
+      <td>0.7667</td>
+      <td>26.7838</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>36.6852</td>
+      <td>0.0939</td>
+      <td>0.0000</td>
+      <td>36.7791</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">RandomForest</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>2740.5329</td>
+      <td>52.7995</td>
+      <td>10.7559</td>
+      <td>2804.0883</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>518.8967</td>
+      <td>5.3602</td>
+      <td>0.0000</td>
+      <td>524.2569</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">GradientBoosting</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>580.8381</td>
+      <td>1.6223</td>
+      <td>0.9192</td>
+      <td>583.3796</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>70.6159</td>
+      <td>1.4436</td>
+      <td>0.0000</td>
+      <td>72.0594</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">LinearSVC</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>97.3622</td>
+      <td>1.0567</td>
+      <td>0.9063</td>
+      <td>99.3252</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>3549.4394</td>
+      <td>0.1457</td>
+      <td>0.0000</td>
+      <td>3549.5850</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">NaiveBayes</th>
+      <th>PySpark</th>
+      <td>38.1933</td>
+      <td>6.2603</td>
+      <td>0.9962</td>
+      <td>0.7364</td>
+      <td>7.9929</td>
+    </tr>
+    <tr>
+      <th>scikit-learn</th>
+      <td>29.3051</td>
+      <td>3.6361</td>
+      <td>0.5324</td>
+      <td>0.0000</td>
+      <td>4.1685</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ent</span> <span class="o">=</span> <span class="n">tiempos</span><span class="p">[</span><span class="s2">"entrenamiento + CV"</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>  <span class="c1"># Entrenamiento por modelo (filas) y entorno (columnas)</span>
+<span class="n">ent</span><span class="p">[</span><span class="s2">"PySpark / scikit-learn"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"PySpark"</span><span class="p">]</span> <span class="o">/</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"scikit-learn"</span><span class="p">]</span>  <span class="c1"># Cociente de tiempos (&lt; 1 → PySpark más rápido)</span>
+<span class="n">ent</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">"TOTAL"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"scikit-learn"</span><span class="p">:</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"scikit-learn"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">"PySpark"</span><span class="p">:</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"PySpark"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>  <span class="c1"># Totales por entorno (por nombre de columna)</span>
+                    <span class="s2">"PySpark / scikit-learn"</span><span class="p">:</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"PySpark"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">ent</span><span class="p">[</span><span class="s2">"scikit-learn"</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()}</span>  <span class="c1"># Cociente de los totales</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Preprocesamiento (s):"</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="s2">"total"</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">prep_t</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>  <span class="c1"># Tiempos de preprocesamiento</span>
+<span class="n">ent</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Preprocesamiento (s): {'sklearn': 29.3, 'pyspark': 38.2}
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>entorno</th>
+      <th>PySpark</th>
+      <th>scikit-learn</th>
+      <th>PySpark / scikit-learn</th>
+    </tr>
+    <tr>
+      <th>modelo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>DecisionTree</th>
+      <td>25.5156</td>
+      <td>36.6852</td>
+      <td>0.6955</td>
+    </tr>
+    <tr>
+      <th>GradientBoosting</th>
+      <td>580.8381</td>
+      <td>70.6159</td>
+      <td>8.2253</td>
+    </tr>
+    <tr>
+      <th>LinearSVC</th>
+      <td>97.3622</td>
+      <td>3549.4394</td>
+      <td>0.0274</td>
+    </tr>
+    <tr>
+      <th>LogisticRegression</th>
+      <td>27.0739</td>
+      <td>63.3387</td>
+      <td>0.4274</td>
+    </tr>
+    <tr>
+      <th>NaiveBayes</th>
+      <td>6.2603</td>
+      <td>3.6361</td>
+      <td>1.7217</td>
+    </tr>
+    <tr>
+      <th>RandomForest</th>
+      <td>2740.5329</td>
+      <td>518.8967</td>
+      <td>5.2815</td>
+    </tr>
+    <tr>
+      <th>TOTAL</th>
+      <td>3477.5830</td>
+      <td>4242.6120</td>
+      <td>0.8197</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># Comparación de tiempos</span>
+<span class="n">tiempos</span><span class="p">[</span><span class="s2">"entrenamiento + CV"</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#DD8452"</span><span class="p">,</span> <span class="s2">"#4C72B0"</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Entrenamiento por modelo</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Entrenamiento + validación cruzada (s, escala log)"</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># Título y etiquetas</span>
+<span class="n">tiempos</span><span class="p">[</span><span class="s2">"predicción"</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">"#DD8452"</span><span class="p">,</span> <span class="s2">"#4C72B0"</span><span class="p">],</span> <span class="n">logy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Predicción por modelo</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Predicción sobre test (s, escala log)"</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># Título y etiquetas</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Ajusta márgenes</span>
+<span class="n">guardar_figura</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">"07_tiempos"</span><span class="p">)</span>  <span class="c1"># Exporta la figura</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Muestra la figura</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b1303887d840bc7fc13e51d9019ed926ebbf78ee6aabef1a32ea264d76949253.png" src="../_images/b1303887d840bc7fc13e51d9019ed926ebbf78ee6aabef1a32ea264d76949253.png" />
+</div>
+</div>
+</section>
+<section id="curvas-roc-una-figura-por-entorno">
+<h2>Curvas ROC (una figura por entorno)<a class="headerlink" href="#curvas-roc-una-figura-por-entorno" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>  <span class="c1"># Una figura por entorno</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">entorno</span><span class="p">,</span> <span class="n">carpeta</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"scikit-learn"</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SCORES_SK</span><span class="p">),</span> <span class="p">(</span><span class="s2">"PySpark"</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SCORES_SP</span><span class="p">)]):</span>  <span class="c1"># Recorre los entornos</span>
+    <span class="k">for</span> <span class="n">modelo</span> <span class="ow">in</span> <span class="n">cfg</span><span class="o">.</span><span class="n">NOMBRES_MODELOS</span><span class="p">:</span>  <span class="c1"># Recorre los modelos</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">carpeta</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">modelo</span><span class="si">}</span><span class="s2">.parquet"</span><span class="p">)</span>  <span class="c1"># Puntuaciones de test</span>
+        <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="s2">"score"</span><span class="p">])</span>  <span class="c1"># Curva ROC</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">modelo</span><span class="si">}</span><span class="s2"> (AUC=</span><span class="si">{</span><span class="n">met</span><span class="p">[</span><span class="n">entorno</span><span class="p">][</span><span class="n">modelo</span><span class="p">][</span><span class="s1">'metricas'</span><span class="p">][</span><span class="s1">'roc_auc'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>  <span class="c1"># Dibuja la curva</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">"k--"</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>  <span class="c1"># Diagonal de referencia</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Curvas ROC – </span><span class="si">{</span><span class="n">entorno</span><span class="si">}</span><span class="s2">"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"FPR"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"TPR"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">"lower right"</span><span class="p">)</span>  <span class="c1"># Rótulos</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Ajusta márgenes</span>
+<span class="n">guardar_figura</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">"07_roc_ambos"</span><span class="p">)</span>  <span class="c1"># Exporta la figura</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Muestra la figura</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c1f556a2f23e463619a8eb321008e9161a4240d183f915b3fe38a14a7a0c9058.png" src="../_images/c1f556a2f23e463619a8eb321008e9161a4240d183f915b3fe38a14a7a0c9058.png" />
+</div>
+</div>
+</section>
+<section id="prueba-de-delong-auc-con-ic-95-comparaciones-entre-entornos-y-mapas-de-calor">
+<h2>Prueba de DeLong: AUC con IC 95 %, comparaciones entre entornos y mapas de calor<a class="headerlink" href="#prueba-de-delong-auc-con-ic-95-comparaciones-entre-entornos-y-mapas-de-calor" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">auc_ic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SALIDAS</span> <span class="o">/</span> <span class="s2">"auc_ic95.csv"</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># AUC e IC por modelo y entorno</span>
+<span class="n">auc_ic</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">AUC</th>
+      <th colspan="2" halign="left">IC95_inf</th>
+      <th colspan="2" halign="left">IC95_sup</th>
+    </tr>
+    <tr>
+      <th>entorno</th>
+      <th>pyspark</th>
+      <th>sklearn</th>
+      <th>pyspark</th>
+      <th>sklearn</th>
+      <th>pyspark</th>
+      <th>sklearn</th>
+    </tr>
+    <tr>
+      <th>modelo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>LogisticRegression</th>
+      <td>0.7141</td>
+      <td>0.7141</td>
+      <td>0.7118</td>
+      <td>0.7117</td>
+      <td>0.7165</td>
+      <td>0.7165</td>
+    </tr>
+    <tr>
+      <th>DecisionTree</th>
+      <td>0.7018</td>
+      <td>0.7043</td>
+      <td>0.6994</td>
+      <td>0.7019</td>
+      <td>0.7042</td>
+      <td>0.7067</td>
+    </tr>
+    <tr>
+      <th>RandomForest</th>
+      <td>0.7142</td>
+      <td>0.7153</td>
+      <td>0.7119</td>
+      <td>0.7129</td>
+      <td>0.7166</td>
+      <td>0.7176</td>
+    </tr>
+    <tr>
+      <th>GradientBoosting</th>
+      <td>0.7208</td>
+      <td>0.7207</td>
+      <td>0.7184</td>
+      <td>0.7184</td>
+      <td>0.7231</td>
+      <td>0.7231</td>
+    </tr>
+    <tr>
+      <th>LinearSVC</th>
+      <td>0.6793</td>
+      <td>0.5293</td>
+      <td>0.6769</td>
+      <td>0.5266</td>
+      <td>0.6817</td>
+      <td>0.5321</td>
+    </tr>
+    <tr>
+      <th>NaiveBayes</th>
+      <td>0.6795</td>
+      <td>0.6792</td>
+      <td>0.6770</td>
+      <td>0.6767</td>
+      <td>0.6819</td>
+      <td>0.6816</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fam1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SALIDAS</span> <span class="o">/</span> <span class="s2">"delong_entre_entornos.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># DeLong sklearn vs PySpark</span>
+<span class="n">fam1</span><span class="p">[[</span><span class="s2">"auc_1"</span><span class="p">,</span> <span class="s2">"auc_2"</span><span class="p">,</span> <span class="s2">"delta_auc"</span><span class="p">,</span> <span class="s2">"delta_ic_inf"</span><span class="p">,</span> <span class="s2">"delta_ic_sup"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">,</span> <span class="s2">"p_valor"</span><span class="p">,</span> <span class="s2">"p_holm"</span><span class="p">,</span> <span class="s2">"significativa"</span><span class="p">,</span> <span class="s2">"relevante"</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"auc_1"</span><span class="p">:</span> <span class="s2">"AUC sklearn"</span><span class="p">,</span> <span class="s2">"auc_2"</span><span class="p">:</span> <span class="s2">"AUC PySpark"</span><span class="p">})</span>  <span class="c1"># Tabla resumida</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AUC sklearn</th>
+      <th>AUC PySpark</th>
+      <th>delta_auc</th>
+      <th>delta_ic_inf</th>
+      <th>delta_ic_sup</th>
+      <th>z</th>
+      <th>p_valor</th>
+      <th>p_holm</th>
+      <th>significativa</th>
+      <th>relevante</th>
+    </tr>
+    <tr>
+      <th>comparacion</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>LogisticRegression: sklearn vs PySpark</th>
+      <td>0.7141</td>
+      <td>0.7141</td>
+      <td>-0.0000</td>
+      <td>-0.0000</td>
+      <td>0.0000</td>
+      <td>-0.9576</td>
+      <td>0.3383</td>
+      <td>0.6765</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>DecisionTree: sklearn vs PySpark</th>
+      <td>0.7043</td>
+      <td>0.7018</td>
+      <td>0.0025</td>
+      <td>0.0015</td>
+      <td>0.0034</td>
+      <td>5.0249</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>RandomForest: sklearn vs PySpark</th>
+      <td>0.7153</td>
+      <td>0.7142</td>
+      <td>0.0011</td>
+      <td>0.0007</td>
+      <td>0.0014</td>
+      <td>6.3575</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>GradientBoosting: sklearn vs PySpark</th>
+      <td>0.7207</td>
+      <td>0.7208</td>
+      <td>-0.0000</td>
+      <td>-0.0004</td>
+      <td>0.0003</td>
+      <td>-0.2267</td>
+      <td>0.8206</td>
+      <td>0.8206</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>LinearSVC: sklearn vs PySpark</th>
+      <td>0.5293</td>
+      <td>0.6793</td>
+      <td>-0.1500</td>
+      <td>-0.1534</td>
+      <td>-0.1465</td>
+      <td>-85.5268</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>NaiveBayes: sklearn vs PySpark</th>
+      <td>0.6792</td>
+      <td>0.6795</td>
+      <td>-0.0003</td>
+      <td>-0.0004</td>
+      <td>-0.0002</td>
+      <td>-10.7921</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_FIGURAS</span> <span class="o">/</span> <span class="s2">"05_heatmaps_delong.png"</span><span class="p">)))</span>  <span class="c1"># Mapas de calor generados en el notebook 05</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/909c0641e402a834f1979c222bdb026aca6398b15bcc7c1283416e730ec6d9a9.png" src="../_images/909c0641e402a834f1979c222bdb026aca6398b15bcc7c1283416e730ec6d9a9.png" />
+</div>
+</div>
+</section>
+<section id="resumen-de-las-tres-pruebas-delong-mcnemar-bootstrap-pareado">
+<h2>Resumen de las tres pruebas (DeLong, McNemar, bootstrap pareado)<a class="headerlink" href="#resumen-de-las-tres-pruebas-delong-mcnemar-bootstrap-pareado" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">comp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SALIDAS</span> <span class="o">/</span> <span class="s2">"comparaciones_complementarias.csv"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Resultados del notebook 05</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ic</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>  <span class="c1"># Formatea un intervalo</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">]"</span>  <span class="c1"># Texto del intervalo</span>
+<span class="n">tabla</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>  <span class="c1"># Tabla de síntesis</span>
+    <span class="s2">"ΔAUC"</span><span class="p">:</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"delong_delta_auc"</span><span class="p">],</span>  <span class="c1"># Diferencia de AUC</span>
+    <span class="s2">"DeLong IC95"</span><span class="p">:</span> <span class="p">[</span><span class="n">ic</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s2">"delong_ic_inf"</span><span class="p">],</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"delong_ic_sup"</span><span class="p">])],</span>  <span class="c1"># IC de DeLong</span>
+    <span class="s2">"DeLong p_Holm"</span><span class="p">:</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"delong_p_holm"</span><span class="p">],</span>  <span class="c1"># p ajustado DeLong</span>
+    <span class="s2">"McNemar b / c"</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s2">"mcnemar_b"</span><span class="p">],</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"mcnemar_c"</span><span class="p">])],</span>  <span class="c1"># Discordantes</span>
+    <span class="s2">"McNemar p_Holm"</span><span class="p">:</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"mcnemar_p_holm"</span><span class="p">],</span>  <span class="c1"># p ajustado McNemar</span>
+    <span class="s2">"Boot ΔAUC IC95"</span><span class="p">:</span> <span class="p">[</span><span class="n">ic</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_auc_ic_inf"</span><span class="p">],</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_auc_ic_sup"</span><span class="p">])],</span>  <span class="c1"># IC bootstrap AUC</span>
+    <span class="s2">"Boot ΔAUC-PR IC95"</span><span class="p">:</span> <span class="p">[</span><span class="n">ic</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_auc_pr_ic_inf"</span><span class="p">],</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_auc_pr_ic_sup"</span><span class="p">])],</span>  <span class="c1"># IC bootstrap AUC-PR</span>
+    <span class="s2">"Boot ΔF1 IC95"</span><span class="p">:</span> <span class="p">[</span><span class="n">ic</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_f1_ic_inf"</span><span class="p">],</span> <span class="n">comp</span><span class="p">[</span><span class="s2">"boot_delta_f1_ic_sup"</span><span class="p">])],</span>  <span class="c1"># IC bootstrap F1</span>
+<span class="p">})</span>
+<span class="n">tabla</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ΔAUC</th>
+      <th>DeLong IC95</th>
+      <th>DeLong p_Holm</th>
+      <th>McNemar b / c</th>
+      <th>McNemar p_Holm</th>
+      <th>Boot ΔAUC IC95</th>
+      <th>Boot ΔAUC-PR IC95</th>
+      <th>Boot ΔF1 IC95</th>
+    </tr>
+    <tr>
+      <th>comparacion</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>LogisticRegression: sklearn vs PySpark</th>
+      <td>-0.0000</td>
+      <td>[-0.0000, +0.0000]</td>
+      <td>0.6765</td>
+      <td>1,135 / 319</td>
+      <td>0.0000</td>
+      <td>[-0.0000, +0.0000]</td>
+      <td>[-0.0002, -0.0001]</td>
+      <td>[-0.0002, +0.0006]</td>
+    </tr>
+    <tr>
+      <th>DecisionTree: sklearn vs PySpark</th>
+      <td>0.0025</td>
+      <td>[+0.0015, +0.0034]</td>
+      <td>0.0000</td>
+      <td>18,549 / 11,787</td>
+      <td>0.0000</td>
+      <td>[+0.0015, +0.0034]</td>
+      <td>[+0.0025, +0.0063]</td>
+      <td>[+0.0014, +0.0050]</td>
+    </tr>
+    <tr>
+      <th>RandomForest: sklearn vs PySpark</th>
+      <td>0.0011</td>
+      <td>[+0.0007, +0.0014]</td>
+      <td>0.0000</td>
+      <td>5,413 / 3,812</td>
+      <td>0.0000</td>
+      <td>[+0.0007, +0.0014]</td>
+      <td>[+0.0001, +0.0015]</td>
+      <td>[-0.0007, +0.0016]</td>
+    </tr>
+    <tr>
+      <th>GradientBoosting: sklearn vs PySpark</th>
+      <td>-0.0000</td>
+      <td>[-0.0004, +0.0003]</td>
+      <td>0.8206</td>
+      <td>5,555 / 6,250</td>
+      <td>0.0000</td>
+      <td>[-0.0004, +0.0003]</td>
+      <td>[-0.0007, +0.0012]</td>
+      <td>[-0.0006, +0.0016]</td>
+    </tr>
+    <tr>
+      <th>LinearSVC: sklearn vs PySpark</th>
+      <td>-0.1500</td>
+      <td>[-0.1534, -0.1465]</td>
+      <td>0.0000</td>
+      <td>16,471 / 119,601</td>
+      <td>0.0000</td>
+      <td>[-0.1534, -0.1466]</td>
+      <td>[-0.1063, -0.0999]</td>
+      <td>[-0.0724, -0.0682]</td>
+    </tr>
+    <tr>
+      <th>NaiveBayes: sklearn vs PySpark</th>
+      <td>-0.0003</td>
+      <td>[-0.0004, -0.0002]</td>
+      <td>0.0000</td>
+      <td>742 / 797</td>
+      <td>0.1687</td>
+      <td>[-0.0004, -0.0002]</td>
+      <td>[-0.0009, -0.0006]</td>
+      <td>[-0.0008, -0.0001]</td>
+    </tr>
+    <tr>
+      <th>sklearn: GradientBoosting vs RandomForest</th>
+      <td>0.0055</td>
+      <td>[+0.0048, +0.0061]</td>
+      <td>0.0000</td>
+      <td>7,457 / 18,142</td>
+      <td>0.0000</td>
+      <td>[+0.0049, +0.0061]</td>
+      <td>[+0.0068, +0.0094]</td>
+      <td>[+0.0068, +0.0103]</td>
+    </tr>
+    <tr>
+      <th>pyspark: GradientBoosting vs RandomForest</th>
+      <td>0.0066</td>
+      <td>[+0.0059, +0.0072]</td>
+      <td>0.0000</td>
+      <td>8,838 / 17,227</td>
+      <td>0.0000</td>
+      <td>[+0.0059, +0.0073]</td>
+      <td>[+0.0073, +0.0101]</td>
+      <td>[+0.0069, +0.0104]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="experimento-auxiliar-a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">
+<h2>Experimento auxiliar: ¿a partir de qué volumen PySpark supera a scikit-learn?<a class="headerlink" href="#experimento-auxiliar-a-partir-de-que-volumen-pyspark-supera-a-scikit-learn" title="Link to this heading">#</a></h2>
+<p>Para responder a esta pregunta de la reflexión se mide el tiempo de <strong>un solo ajuste</strong>
+(sin validación cruzada) de dos modelos representativos con hiperparámetros fijos, sobre
+fracciones crecientes del conjunto de entrenamiento: 1 %, 5 %, 10 %, 25 %, 50 % y 100 %.
+<strong>Este experimento es solo de tiempos</strong>: ningún modelo reportado en el proyecto se entrenó
+con datos reducidos. Las fracciones se toman con la misma lista de índices en ambos entornos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span> <span class="k">as</span> <span class="n">SkLR</span>  <span class="c1"># Regresión logística de sklearn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span> <span class="k">as</span> <span class="n">SkRF</span>  <span class="c1"># Bosque aleatorio de sklearn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.sql</span><span class="w"> </span><span class="kn">import</span> <span class="n">functions</span> <span class="k">as</span> <span class="n">F</span>  <span class="c1"># Funciones de Spark</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyspark.ml.classification</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span> <span class="k">as</span> <span class="n">SpLR</span><span class="p">,</span> <span class="n">RandomForestClassifier</span> <span class="k">as</span> <span class="n">SpRF</span><span class="p">,</span> <span class="n">GBTClassifier</span>  <span class="c1"># Modelos de Spark</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src</span><span class="w"> </span><span class="kn">import</span> <span class="n">preparacion_spark</span> <span class="k">as</span> <span class="n">prep_sp</span>  <span class="c1"># Preparación con Spark</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SKLEARN_PREP</span> <span class="o">/</span> <span class="s2">"X_train.npy"</span><span class="p">)</span>  <span class="c1"># Matriz de entrenamiento de sklearn</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SKLEARN_PREP</span> <span class="o">/</span> <span class="s2">"y_train.npy"</span><span class="p">)</span>  <span class="c1"># Etiquetas de entrenamiento</span>
+<span class="n">id_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SKLEARN_PREP</span> <span class="o">/</span> <span class="s2">"id_train.npy"</span><span class="p">)</span>  <span class="c1"># Identificadores de entrenamiento</span>
+<span class="n">orden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">SEMILLA</span><span class="p">)</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">id_train</span><span class="p">))</span>  <span class="c1"># Orden aleatorio fijo de las filas de train</span>
+<span class="n">rango</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_ID</span><span class="p">:</span> <span class="n">id_train</span><span class="p">[</span><span class="n">orden</span><span class="p">],</span> <span class="s2">"rango"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">orden</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">orden</span><span class="p">)})</span>  <span class="c1"># Posición relativa de cada id (0–1)</span>
+<span class="n">rango</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_DATOS</span> <span class="o">/</span> <span class="s2">"rango_escalabilidad.parquet"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Se guarda para que Spark lo lea sin pasar por el driver</span>
+<span class="n">fracciones</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">]</span>  <span class="c1"># Fracciones de train a evaluar</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">crear_sesion</span><span class="p">()</span>  <span class="c1"># Sesión de Spark con la configuración del enunciado</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">transformar_numericas</span><span class="p">(</span><span class="n">prep_sp</span><span class="o">.</span><span class="n">construir_variables</span><span class="p">(</span><span class="n">prep_sp</span><span class="o">.</span><span class="n">leer_csv</span><span class="p">(</span><span class="n">spark</span><span class="p">)))</span>  <span class="c1"># Lee y construye variables</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">RUTA_PARTICION</span><span class="p">))),</span> <span class="n">on</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_ID</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"split"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"train"</span><span class="p">)</span>  <span class="c1"># Solo train</span>
+<span class="n">frec</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">categorias_frecuentes</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">CATEGORICAS_MODELO</span><span class="p">)</span>  <span class="c1"># Categorías frecuentes de train</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">agrupar_categorias</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">frec</span><span class="p">)</span>  <span class="c1"># Agrupa categorías raras</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">pipeline_preprocesamiento</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_ID</span><span class="p">,</span> <span class="s2">"features"</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">)</span>  <span class="c1"># Vector de características</span>
+<span class="n">feat</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_DATOS</span> <span class="o">/</span> <span class="s2">"rango_escalabilidad.parquet"</span><span class="p">))),</span> <span class="n">on</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_ID</span><span class="p">)</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">PARTICIONES_SPARK</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>  <span class="c1"># Agrega la posición relativa (tabla pequeña de id → rango)</span>
+<span class="n">feat</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># Materializa la caché</span>
+
+<span class="n">filas</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Resultados del experimento</span>
+<span class="k">for</span> <span class="n">frac</span> <span class="ow">in</span> <span class="n">fracciones</span><span class="p">:</span>  <span class="c1"># Recorre las fracciones</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">orden</span><span class="p">[:</span> <span class="nb">int</span><span class="p">(</span><span class="n">frac</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">orden</span><span class="p">))]</span>  <span class="c1"># Índices de sklearn de la fracción</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">feat</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"rango"</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">frac</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>  <span class="c1"># Mismas filas en Spark</span>
+    <span class="n">n_sub</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># Materializa la fracción</span>
+    <span class="k">for</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">sk_mod</span><span class="p">,</span> <span class="n">sp_mod</span> <span class="ow">in</span> <span class="p">[</span>  <span class="c1"># Dos modelos representativos</span>
+        <span class="p">(</span><span class="s2">"LogisticRegression"</span><span class="p">,</span> <span class="n">SkLR</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">c_desde_regparam</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span> <span class="n">SpLR</span><span class="p">(</span><span class="n">regParam</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">elasticNetParam</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">maxIter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">featuresCol</span><span class="o">=</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">labelCol</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">)),</span>  <span class="c1"># Lineal</span>
+        <span class="p">(</span><span class="s2">"RandomForest"</span><span class="p">,</span> <span class="n">SkRF</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SEMILLA</span><span class="p">),</span> <span class="n">SpRF</span><span class="p">(</span><span class="n">numTrees</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">maxDepth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SEMILLA</span><span class="p">,</span> <span class="n">featuresCol</span><span class="o">=</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">labelCol</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">)),</span>  <span class="c1"># Ensamble</span>
+    <span class="p">]:</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">sk_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">idx</span><span class="p">]);</span> <span class="n">t_sk</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>  <span class="c1"># Ajuste en sklearn</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">sp_mod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sub</span><span class="p">);</span> <span class="n">t_sp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>  <span class="c1"># Ajuste en Spark</span>
+        <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"fraccion"</span><span class="p">:</span> <span class="n">frac</span><span class="p">,</span> <span class="s2">"n"</span><span class="p">:</span> <span class="n">n_sub</span><span class="p">,</span> <span class="s2">"modelo"</span><span class="p">:</span> <span class="n">nombre</span><span class="p">,</span> <span class="s2">"scikit-learn"</span><span class="p">:</span> <span class="n">t_sk</span><span class="p">,</span> <span class="s2">"PySpark"</span><span class="p">:</span> <span class="n">t_sp</span><span class="p">})</span>  <span class="c1"># Guarda los tiempos</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">frac</span><span class="si">:</span><span class="s2">&gt;5.0%</span><span class="si">}</span><span class="s2"> n=</span><span class="si">{</span><span class="n">n_sub</span><span class="si">:</span><span class="s2">&gt;9,</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">nombre</span><span class="si">:</span><span class="s2">&lt;18</span><span class="si">}</span><span class="s2"> sklearn=</span><span class="si">{</span><span class="n">t_sk</span><span class="si">:</span><span class="s2">7.1f</span><span class="si">}</span><span class="s2">s  PySpark=</span><span class="si">{</span><span class="n">t_sp</span><span class="si">:</span><span class="s2">7.1f</span><span class="si">}</span><span class="s2">s"</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Progreso</span>
+    <span class="n">sub</span><span class="o">.</span><span class="n">unpersist</span><span class="p">()</span>  <span class="c1"># Libera la fracción</span>
+<span class="n">feat</span><span class="o">.</span><span class="n">unpersist</span><span class="p">();</span> <span class="n">spark</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># Libera recursos</span>
+<span class="n">escala</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas</span><span class="p">)</span>  <span class="c1"># Tabla de resultados</span>
+<span class="n">escala</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SALIDAS</span> <span class="o">/</span> <span class="s2">"escalabilidad.csv"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Guarda los resultados</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   1% n=   10,763 LogisticRegression sklearn=    0.2s  PySpark=    3.7s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   1% n=   10,763 RandomForest       sklearn=    0.2s  PySpark=    3.2s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   5% n=   53,813 LogisticRegression sklearn=    0.6s  PySpark=    1.7s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   5% n=   53,813 RandomForest       sklearn=    0.5s  PySpark=    5.1s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  10% n=  107,625 LogisticRegression sklearn=    1.2s  PySpark=    1.4s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  10% n=  107,625 RandomForest       sklearn=    1.1s  PySpark=    7.8s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  25% n=  269,062 LogisticRegression sklearn=    2.9s  PySpark=    1.6s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  25% n=  269,062 RandomForest       sklearn=    3.4s  PySpark=   17.2s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  50% n=  538,124 LogisticRegression sklearn=    6.4s  PySpark=    1.8s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  50% n=  538,124 RandomForest       sklearn=    7.3s  PySpark=   29.7s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 100% n=1,076,248 LogisticRegression sklearn=   20.3s  PySpark=    2.4s
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 100% n=1,076,248 RandomForest       sklearn=   16.0s  PySpark=   47.5s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1"># Tiempo vs tamaño para cada modelo</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">escala</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"modelo"</span><span class="p">)):</span>  <span class="c1"># Un gráfico por modelo</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s2">"n"</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="s2">"scikit-learn"</span><span class="p">],</span> <span class="s2">"o-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#DD8452"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"scikit-learn"</span><span class="p">)</span>  <span class="c1"># Curva de sklearn</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="s2">"n"</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="s2">"PySpark"</span><span class="p">],</span> <span class="s2">"s-"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#4C72B0"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"PySpark"</span><span class="p">)</span>  <span class="c1"># Curva de PySpark</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>  <span class="c1"># Escalas logarítmicas</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"filas de entrenamiento"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"segundos (un ajuste)"</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">nombre</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>  <span class="c1"># Rótulos</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Ajusta márgenes</span>
+<span class="n">guardar_figura</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">"07_escalabilidad"</span><span class="p">)</span>  <span class="c1"># Exporta la figura</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Muestra la figura</span>
+<span class="n">escala</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">"PySpark / sklearn"</span><span class="p">:</span> <span class="n">escala</span><span class="p">[</span><span class="s2">"PySpark"</span><span class="p">]</span> <span class="o">/</span> <span class="n">escala</span><span class="p">[</span><span class="s2">"scikit-learn"</span><span class="p">]})</span>  <span class="c1"># Tabla con el cociente de tiempos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/40f7717c1880701d6d1b061402d2e22276ec8195973c59f46ff0ea93420cc08d.png" src="../_images/40f7717c1880701d6d1b061402d2e22276ec8195973c59f46ff0ea93420cc08d.png" />
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>fraccion</th>
+      <th>n</th>
+      <th>modelo</th>
+      <th>scikit-learn</th>
+      <th>PySpark</th>
+      <th>PySpark / sklearn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0100</td>
+      <td>10763</td>
+      <td>LogisticRegression</td>
+      <td>0.1631</td>
+      <td>3.6909</td>
+      <td>22.6270</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0100</td>
+      <td>10763</td>
+      <td>RandomForest</td>
+      <td>0.1559</td>
+      <td>3.2105</td>
+      <td>20.5883</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0500</td>
+      <td>53813</td>
+      <td>LogisticRegression</td>
+      <td>0.6323</td>
+      <td>1.6523</td>
+      <td>2.6132</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0500</td>
+      <td>53813</td>
+      <td>RandomForest</td>
+      <td>0.5289</td>
+      <td>5.1499</td>
+      <td>9.7375</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.1000</td>
+      <td>107625</td>
+      <td>LogisticRegression</td>
+      <td>1.1835</td>
+      <td>1.4221</td>
+      <td>1.2017</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.1000</td>
+      <td>107625</td>
+      <td>RandomForest</td>
+      <td>1.1035</td>
+      <td>7.8154</td>
+      <td>7.0825</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.2500</td>
+      <td>269062</td>
+      <td>LogisticRegression</td>
+      <td>2.9192</td>
+      <td>1.6008</td>
+      <td>0.5484</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.2500</td>
+      <td>269062</td>
+      <td>RandomForest</td>
+      <td>3.4403</td>
+      <td>17.2419</td>
+      <td>5.0118</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.5000</td>
+      <td>538124</td>
+      <td>LogisticRegression</td>
+      <td>6.3930</td>
+      <td>1.8137</td>
+      <td>0.2837</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.5000</td>
+      <td>538124</td>
+      <td>RandomForest</td>
+      <td>7.3457</td>
+      <td>29.7370</td>
+      <td>4.0482</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1.0000</td>
+      <td>1076248</td>
+      <td>LogisticRegression</td>
+      <td>20.3481</td>
+      <td>2.4319</td>
+      <td>0.1195</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>1.0000</td>
+      <td>1076248</td>
+      <td>RandomForest</td>
+      <td>16.0165</td>
+      <td>47.4804</td>
+      <td>2.9645</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="experimento-auxiliar-efecto-de-las-condiciones-obligatorias-de-spark">
+<h2>Experimento auxiliar: efecto de las condiciones obligatorias de Spark<a class="headerlink" href="#experimento-auxiliar-efecto-de-las-condiciones-obligatorias-de-spark" title="Link to this heading">#</a></h2>
+<p>Se mide, sobre <strong>todo</strong> el conjunto de entrenamiento, el tiempo de ajustar un
+<code class="docutils literal notranslate"><span class="pre">GBTClassifier</span></code> (10 iteraciones, profundidad 5) y un <code class="docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code> (20 árboles,
+profundidad 10) bajo tres condiciones:</p>
+<ol class="arabic simple">
+<li><p><strong>6 particiones + caché</strong> (configuración usada en el notebook 04, <code class="docutils literal notranslate"><span class="pre">local[6]</span></code>);</p></li>
+<li><p><strong>400 particiones + caché</strong> (valores literales del enunciado para <code class="docutils literal notranslate"><span class="pre">shuffle.partitions</span></code>,
+<code class="docutils literal notranslate"><span class="pre">default.parallelism</span></code> y el reparto de los datos);</p></li>
+<li><p><strong>6 particiones sin caché</strong>: cada pasada del algoritmo vuelve a leer y descomprimir el
+CSV y a recalcular el preprocesamiento (solo con el bosque, por su costo).</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">features_train</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">particiones</span><span class="p">):</span>  <span class="c1"># Construye el DataFrame de train con el vector de características</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">transformar_numericas</span><span class="p">(</span><span class="n">prep_sp</span><span class="o">.</span><span class="n">construir_variables</span><span class="p">(</span><span class="n">prep_sp</span><span class="o">.</span><span class="n">leer_csv</span><span class="p">(</span><span class="n">spark</span><span class="p">)))</span>  <span class="c1"># Lectura y variables</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">RUTA_PARTICION</span><span class="p">))),</span> <span class="n">on</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_ID</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">"split"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"train"</span><span class="p">)</span>  <span class="c1"># Solo train</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">agrupar_categorias</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">categorias_frecuentes</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">CATEGORICAS_MODELO</span><span class="p">))</span><span class="o">.</span><span class="n">repartition</span><span class="p">(</span><span class="n">particiones</span><span class="p">)</span>  <span class="c1"># Categorías y reparto</span>
+    <span class="k">return</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">pipeline_preprocesamiento</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">)</span>  <span class="c1"># Vector de características (perezoso)</span>
+
+<span class="n">modelos_exp</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># Modelos del experimento</span>
+    <span class="s2">"GBT (10 it., prof. 5)"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">GBTClassifier</span><span class="p">(</span><span class="n">maxIter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">maxDepth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SEMILLA</span><span class="p">,</span> <span class="n">featuresCol</span><span class="o">=</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">labelCol</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">),</span>  <span class="c1"># Boosting</span>
+    <span class="s2">"RF (20 árboles, prof. 10)"</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">SpRF</span><span class="p">(</span><span class="n">numTrees</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">maxDepth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">SEMILLA</span><span class="p">,</span> <span class="n">featuresCol</span><span class="o">=</span><span class="s2">"features"</span><span class="p">,</span> <span class="n">labelCol</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">COL_TARGET</span><span class="p">),</span>  <span class="c1"># Bosque</span>
+<span class="p">}</span>
+<span class="n">filas</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Resultados del experimento</span>
+<span class="k">for</span> <span class="n">particiones</span> <span class="ow">in</span> <span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">PARTICIONES_SPARK</span><span class="p">,</span> <span class="mi">400</span><span class="p">]:</span>  <span class="c1"># Recorre las dos configuraciones de particiones</span>
+    <span class="n">spark</span> <span class="o">=</span> <span class="n">prep_sp</span><span class="o">.</span><span class="n">crear_sesion</span><span class="p">(</span><span class="n">particiones</span><span class="o">=</span><span class="n">particiones</span><span class="p">)</span>  <span class="c1"># Sesión nueva con esa configuración</span>
+    <span class="n">feat</span> <span class="o">=</span> <span class="n">features_train</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">particiones</span><span class="p">)</span><span class="o">.</span><span class="n">persist</span><span class="p">()</span>  <span class="c1"># Datos de train cacheados</span>
+    <span class="n">feat</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># Materializa la caché</span>
+    <span class="k">for</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">crear</span> <span class="ow">in</span> <span class="n">modelos_exp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># Recorre los modelos</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">crear</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">feat</span><span class="p">);</span> <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>  <span class="c1"># Ajuste cronometrado</span>
+        <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"condición"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">particiones</span><span class="si">}</span><span class="s2"> particiones + caché"</span><span class="p">,</span> <span class="s2">"modelo"</span><span class="p">:</span> <span class="n">nombre</span><span class="p">,</span> <span class="s2">"segundos"</span><span class="p">:</span> <span class="n">t</span><span class="p">})</span>  <span class="c1"># Guarda el tiempo</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">filas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Progreso</span>
+    <span class="n">feat</span><span class="o">.</span><span class="n">unpersist</span><span class="p">()</span>  <span class="c1"># Libera la caché</span>
+    <span class="k">if</span> <span class="n">particiones</span> <span class="o">==</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PARTICIONES_SPARK</span><span class="p">:</span>  <span class="c1"># Condición sin caché (solo con 6 particiones)</span>
+        <span class="n">sin_cache</span> <span class="o">=</span> <span class="n">features_train</span><span class="p">(</span><span class="n">spark</span><span class="p">,</span> <span class="n">particiones</span><span class="p">)</span>  <span class="c1"># Mismo DataFrame, sin persist()</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">();</span> <span class="n">modelos_exp</span><span class="p">[</span><span class="s2">"RF (20 árboles, prof. 10)"</span><span class="p">]()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">sin_cache</span><span class="p">);</span> <span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>  <span class="c1"># Ajuste sin caché</span>
+        <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"condición"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">particiones</span><span class="si">}</span><span class="s2"> particiones sin caché"</span><span class="p">,</span> <span class="s2">"modelo"</span><span class="p">:</span> <span class="s2">"RF (20 árboles, prof. 10)"</span><span class="p">,</span> <span class="s2">"segundos"</span><span class="p">:</span> <span class="n">t</span><span class="p">})</span>  <span class="c1"># Guarda el tiempo</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">filas</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Progreso</span>
+    <span class="n">spark</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># Detiene la sesión antes de cambiar la configuración</span>
+<span class="n">condiciones</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas</span><span class="p">)</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">"modelo"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"condición"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"segundos"</span><span class="p">)</span>  <span class="c1"># Tabla modelo × condición</span>
+<span class="n">condiciones</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">DIR_SALIDAS</span> <span class="o">/</span> <span class="s2">"efecto_condiciones_spark.csv"</span><span class="p">)</span>  <span class="c1"># Guarda la tabla</span>
+<span class="n">condiciones</span>  <span class="c1"># Muestra la tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'condición': '6 particiones + caché', 'modelo': 'GBT (10 it., prof. 5)', 'segundos': 8.716172218322754}
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'condición': '6 particiones + caché', 'modelo': 'RF (20 árboles, prof. 10)', 'segundos': 15.161192655563354}
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'condición': '6 particiones sin caché', 'modelo': 'RF (20 árboles, prof. 10)', 'segundos': 92.48577618598938}
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'condición': '400 particiones + caché', 'modelo': 'GBT (10 it., prof. 5)', 'segundos': 75.64392304420471}
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{'condición': '400 particiones + caché', 'modelo': 'RF (20 árboles, prof. 10)', 'segundos': 141.4095959663391}
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>condición</th>
+      <th>400 particiones + caché</th>
+      <th>6 particiones + caché</th>
+      <th>6 particiones sin caché</th>
+    </tr>
+    <tr>
+      <th>modelo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>GBT (10 it., prof. 5)</th>
+      <td>75.6439</td>
+      <td>8.7162</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>RF (20 árboles, prof. 10)</th>
+      <td>141.4096</td>
+      <td>15.1612</td>
+      <td>92.4858</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="reflexion-critica">
+<h2>Reflexión crítica<a class="headerlink" href="#reflexion-critica" title="Link to this heading">#</a></h2>
+<section id="que-entorno-fue-mas-rapido-y-por-que">
+<h3>¿Qué entorno fue más rápido y por qué?<a class="headerlink" href="#que-entorno-fue-mas-rapido-y-por-que" title="Link to this heading">#</a></h3>
+<p>Sumando el entrenamiento con validación cruzada de los seis modelos, <strong>PySpark tardó ≈ 3.478 s
+y scikit-learn ≈ 4.243 s</strong>. Pero el total engaña: sin LinearSVC (cuyo solucionador de
+scikit-learn es patológicamente lento aquí), scikit-learn tarda ≈ 693 s y PySpark ≈ 3.380 s.
+El resultado depende del algoritmo:</p>
+<ul class="simple">
+<li><p><strong>PySpark gana en los modelos lineales y el árbol simple</strong> (regresión logística 27 s vs 63 s;
+árbol 26 s vs 37 s; LinearSVC 97 s vs 3.549 s). Son algoritmos de pocas pasadas sobre datos
+cacheados; cada pasada se reparte bien entre particiones y Spark usa optimizadores
+(L-BFGS/OWL-QN) que convergen en pocas iteraciones. El LinearSVC de scikit-learn usa un
+descenso por coordenadas dual de un solo hilo que, con C ≈ 0,93, necesita miles de iteraciones.</p></li>
+<li><p><strong>scikit-learn gana en los ensambles</strong> (bosque 519 s vs 2.741 s; boosting 71 s vs 581 s).
+Su código compilado entrena árboles completos en memoria y reparte los árboles del bosque
+entre 12 hilos. Spark construye los árboles <strong>nivel por nivel</strong>: cada nivel es un trabajo que
+serializa los árboles hacia las tareas y combina estadísticas entre particiones, y el boosting
+encadena 100 árboles secuenciales, cada uno con varios trabajos. Además, PySpark usó 6 hilos
+(el límite de memoria lo impuso) frente a 12.</p></li>
+<li><p><strong>Tamaño del dataset:</strong> 1,3 M filas × 25 variables caben holgadamente en la RAM de un
+portátil (la matriz de scikit-learn ocupa ≈ 330 MB), así que la principal ventaja de Spark
+—procesar datos que no caben en una máquina— no se aprovecha, y su sobrecarga fija sí se paga.</p></li>
+<li><p><strong>Caché:</strong> imprescindible. Sin ella, un bosque de 20 árboles tardó 92,5 s frente a 15,2 s
+(× 6,1), porque cada pasada volvía a descomprimir el CSV y a recalcular el preprocesamiento.</p></li>
+<li><p><strong>CrossValidator:</strong> multiplica el costo por 3 pliegues × combinaciones, igual que
+<code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>; pero <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> reparte los ajustes en 12 procesos, mientras que en Spark
+el paralelismo entre combinaciones tuvo que limitarse (1 en los ensambles) por memoria.</p></li>
+<li><p><strong>Configuración de Spark:</strong> con las 400 particiones del enunciado, 10 iteraciones de GBT
+tardaron 75,6 s y 20 árboles de bosque 141,4 s, frente a 8,7 s y 15,2 s con 6 particiones
+(× 8,7 y × 9,3): en una sola máquina la sobrecarga de tareas diminutas domina.</p></li>
+</ul>
+</section>
+<section id="cual-fue-mas-preciso">
+<h3>¿Cuál fue más preciso?<a class="headerlink" href="#cual-fue-mas-preciso" title="Link to this heading">#</a></h3>
+<p><strong>Empate técnico.</strong> El mejor modelo de ambos entornos es <em>gradient boosting</em> con AUC 0,7207
+(scikit-learn) y 0,7208 (PySpark), sin diferencia significativa (p Holm = 0,82). scikit-learn
+es ligeramente mejor en árbol y bosque (+0,0025 y +0,0011, significativas pero irrelevantes) y
+PySpark es mucho mejor en LinearSVC (+0,150). En F1 con umbral de train, los mejores modelos
+empatan (0,4377 vs 0,4373).</p>
+</section>
+<section id="que-diferencias-de-auc-son-significativas-tras-holm-y-cuales-son-relevantes">
+<h3>¿Qué diferencias de AUC son significativas tras Holm y cuáles son relevantes?<a class="headerlink" href="#que-diferencias-de-auc-son-significativas-tras-holm-y-cuales-son-relevantes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Entre entornos:</strong> significativas en árbol, bosque, Naive Bayes y LinearSVC; <strong>relevante solo
+LinearSVC</strong> (|ΔAUC| = 0,150). Regresión logística y boosting no difieren.</p></li>
+<li><p><strong>Entre modelos:</strong> 15/15 pares significativos en scikit-learn y 13/15 en PySpark. Son
+relevantes (≥ 0,005) las ventajas del boosting sobre todos los demás (≥ 0,0055), las de
+logística y bosque sobre el árbol (≈ 0,010–0,012) y las de todos ellos sobre Naive Bayes
+(≈ 0,022–0,042). No es relevante la diferencia entre logística y bosque (≤ 0,0012): un modelo
+lineal regularizado rinde casi como un bosque de 100 árboles con estas variables.</p></li>
+</ul>
+</section>
+<section id="que-diferencias-de-implementacion-explican-las-discrepancias">
+<h3>¿Qué diferencias de implementación explican las discrepancias?<a class="headerlink" href="#que-diferencias-de-implementacion-explican-las-discrepancias" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Discretización en los árboles:</strong> <code class="docutils literal notranslate"><span class="pre">maxBins</span> <span class="pre">=</span> <span class="pre">32</span></code> en Spark frente a cortes exactos
+(árbol/bosque) o 255 intervalos (<code class="docutils literal notranslate"><span class="pre">HistGradientBoosting</span></code>) en scikit-learn → pequeñas pérdidas
+de AUC en árbol y bosque.</p></li>
+<li><p><strong>Poda de hojas en Spark:</strong> fusiona hojas hermanas con la misma clase predicha; con clases
+desbalanceadas destruye la ordenación de los árboles poco profundos (profundidad 5: 0,654 vs
+0,692 en CV). Además, en los árboles <code class="docutils literal notranslate"><span class="pre">rawPrediction</span></code> guarda conteos, no proporciones, y hubo
+que evaluar sobre <code class="docutils literal notranslate"><span class="pre">probability</span></code> para obtener AUC correctos.</p></li>
+<li><p><strong>LinearSVC:</strong> mismos objetivos (<em>hinge</em> + L2), pero solucionadores distintos (dual por
+coordenadas vs OWL-QN) y, sobre todo, <code class="docutils literal notranslate"><span class="pre">liblinear</span></code> <strong>penaliza el intercepto</strong>; con 20 % de
+positivos eso degrada el modelo (0,53 vs 0,68).</p></li>
+<li><p><strong>Regularización:</strong> C = 1/(regParam·n) es solo aproximada (suma vs promedio de pérdidas),
+pero con n ≈ 1 M la penalización es tan pequeña que los tres valores dan el mismo AUC.</p></li>
+<li><p><strong>Boosting:</strong> <code class="docutils literal notranslate"><span class="pre">HistGradientBoosting</span></code> usa pasos de Newton (gradiente + hessiano) y
+<code class="docutils literal notranslate"><span class="pre">GBTClassifier</span></code> ajusta árboles de regresión a los pseudo-residuos; aun así el AUC es idéntico.</p></li>
+<li><p><strong>Naive Bayes:</strong> el suavizado de varianzas difiere levemente (ΔAUC = 0,0003).</p></li>
+<li><p><strong>Codificación:</strong> <code class="docutils literal notranslate"><span class="pre">StringIndexer(handleInvalid=&quot;keep&quot;)</span></code> añade una columna por variable para
+categorías no vistas (84 frente a 77 columnas), sin efecto en test.</p></li>
+</ul>
+</section>
+<section id="limitaciones-de-delong-y-complemento-de-mcnemar-y-bootstrap-coinciden">
+<h3>Limitaciones de DeLong y complemento de McNemar y bootstrap. ¿Coinciden?<a class="headerlink" href="#limitaciones-de-delong-y-complemento-de-mcnemar-y-bootstrap-coinciden" title="Link to this heading">#</a></h3>
+<p>DeLong solo mide la incertidumbre del <strong>muestreo del test</strong> (no la del entrenamiento), supone
+independencia y resume todos los umbrales. El <strong>bootstrap</strong> coincidió con DeLong en las 8
+comparaciones de AUC (intervalos casi idénticos) y además permitió evaluar <strong>AUC-PR y F1</strong>,
+donde algunas conclusiones cambian (en el bosque, el AUC difiere pero F1 y AUC-PR no). <strong>McNemar</strong>
+discrepó con frecuencia porque compara <strong>decisiones</strong> con umbrales distintos: detectó
+diferencias donde el AUC es igual (logística, boosting), no las detectó donde el AUC difiere
+levemente (Naive Bayes) y, entre boosting y bosque, favoreció al bosque por cometer menos errores
+totales aunque detecta menos defaults. Las tres pruebas coinciden en lo importante (boosting
+es el mejor; LinearSVC de scikit-learn es claramente inferior) y difieren en los matices, que
+dependen de qué propiedad del desempeño se mide.</p>
+</section>
+<section id="a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">
+<h3>¿A partir de qué volumen PySpark supera a scikit-learn?<a class="headerlink" href="#a-partir-de-que-volumen-pyspark-supera-a-scikit-learn" title="Link to this heading">#</a></h3>
+<p>Depende del algoritmo (experimento auxiliar de escalabilidad):</p>
+<ul class="simple">
+<li><p><strong>Regresión logística:</strong> con 1 % de train (≈ 11 mil filas) PySpark es 23 veces más lento
+(3,7 s vs 0,16 s) por la sobrecarga fija de trabajos; casi se iguala hacia el <strong>10 % (≈ 110 mil
+filas</strong>: 1,4 s vs 1,2 s) y a partir de <strong>≈ 250 mil filas</strong> PySpark es más rápido (1,6 s vs
+2,9 s). Con todo train es 8 veces más rápido (2,4 s vs 20,3 s), porque su tiempo casi no
+crece con n.</p></li>
+<li><p><strong>Bosque aleatorio:</strong> PySpark <strong>nunca</strong> supera a scikit-learn en este equipo, aunque la
+brecha se reduce (de × 21 con 11 mil filas a × 3,0 con 1,07 M). Extrapolando la tendencia,
+haría falta del orden de decenas de millones de filas, o un clúster con más memoria y
+núcleos, para que la versión distribuida compense.</p></li>
+</ul>
+</section>
+<section id="que-aporta-lime-y-cuales-son-sus-limitaciones-en-entornos-distribuidos">
+<h3>¿Qué aporta LIME y cuáles son sus limitaciones en entornos distribuidos?<a class="headerlink" href="#que-aporta-lime-y-cuales-son-sus-limitaciones-en-entornos-distribuidos" title="Link to this heading">#</a></h3>
+<p>LIME explicó por qué ambos <em>boosting</em> fallaron en dos préstamos concretos (plazo corto y tasa
+baja en el falso negativo; tasa alta e ingreso bajo en el falso positivo) y mostró que los dos
+modelos se apoyan en las mismas variables con los mismos signos. En Spark, LIME exige llevar
+datos de entrenamiento y perturbaciones al driver, mantener el modelo vivo en la sesión y
+pagar varios trabajos de Spark por cada lote de perturbaciones (≈ 0,6 s por llamada, y ≈ 250 s
+antes de optimizar la transferencia). Es viable para unas pocas instancias, no para
+explicaciones masivas.</p>
+</section>
+<section id="que-efecto-tuvo-cada-condicion-obligatoria-en-el-rendimiento">
+<h3>¿Qué efecto tuvo cada condición obligatoria en el rendimiento?<a class="headerlink" href="#que-efecto-tuvo-cada-condicion-obligatoria-en-el-rendimiento" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condición</p></th>
+<th class="head"><p>Efecto observado</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Dataset completo, sin muestreo</p></td>
+<td><p>Aumentó los tiempos de scikit-learn (bosque 519 s; LinearSVC 59 min) y amortizó la sobrecarga fija de Spark; en regresión logística es lo que hace ganar a Spark</p></td>
+</tr>
+<tr class="row-odd"><td><p>Partición común guardada en Parquet (sin <code class="docutils literal notranslate"><span class="pre">randomSplit</span></code>)</p></td>
+<td><p>Garantiza pruebas pareadas sobre las mismas 269.062 filas (verificado por <code class="docutils literal notranslate"><span class="pre">id</span></code>); costo despreciable</p></td>
+</tr>
+<tr class="row-even"><td><p>Transformadores ajustados solo con train</p></td>
+<td><p>Sin costo apreciable; evita fuga de información (la media de test tras escalar no es exactamente 0)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Prohibición de <code class="docutils literal notranslate"><span class="pre">.toPandas()</span></code> / <code class="docutils literal notranslate"><span class="pre">.collect()</span></code></p></td>
+<td><p>Todo el preprocesamiento se hizo en Spark; la transferencia final de <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">default</span></code> y <code class="docutils literal notranslate"><span class="pre">score</span></code> costó ≈ 1 s por modelo (11 s en el bosque)</p></td>
+</tr>
+<tr class="row-even"><td><p>Caché tras el <code class="docutils literal notranslate"><span class="pre">VectorAssembler</span></code></p></td>
+<td><p>Imprescindible: sin caché el bosque de prueba fue 6,1 veces más lento</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ParamGridBuilder</span></code> + <code class="docutils literal notranslate"><span class="pre">CrossValidator</span></code> (sin bucles)</p></td>
+<td><p>Mismo número de ajustes que <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>; el paralelismo entre combinaciones se limitó en los ensambles por memoria</p></td>
+</tr>
+<tr class="row-even"><td><p>400 particiones de <em>shuffle</em> y paralelismo</p></td>
+<td><p>≈ 9 veces más lento en una sola máquina (GBT × 8,7; bosque × 9,3); se sustituyó por 6 (justificado)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Memoria 8g</p></td>
+<td><p>Insuficiente para el bosque de 100 árboles de profundidad 15 con 12 tareas simultáneas (tres fallos por falta de memoria); se usaron 9g y <code class="docutils literal notranslate"><span class="pre">local[6]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Conclusión.</strong> Con 1,3 millones de filas en un solo equipo, ambos entornos alcanzan la misma
+capacidad predictiva (AUC ≈ 0,72 con <em>gradient boosting</em>), pero scikit-learn es más rápido y
+sencillo para los ensambles, mientras que PySpark ya aventaja a scikit-learn en los modelos
+lineales a partir de unas 250 mil filas. La hipótesis del enunciado («PySpark superará en
+velocidad a scikit-learn») se cumple solo en parte: para la regresión logística, el árbol y
+LinearSVC, no para los ensambles.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="06_lime.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">6. Interpretabilidad con LIME</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-comparativa-de-metricas-test-umbral-por-defecto-y-f1-con-el-umbral-elegido-en-train">Tabla comparativa de métricas (test, umbral por defecto) y F1 con el umbral elegido en train</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tiempos-de-computo-por-modelo-y-entorno-segundos">Tiempos de cómputo por modelo y entorno (segundos)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curvas-roc-una-figura-por-entorno">Curvas ROC (una figura por entorno)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prueba-de-delong-auc-con-ic-95-comparaciones-entre-entornos-y-mapas-de-calor">Prueba de DeLong: AUC con IC 95 %, comparaciones entre entornos y mapas de calor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-de-las-tres-pruebas-delong-mcnemar-bootstrap-pareado">Resumen de las tres pruebas (DeLong, McNemar, bootstrap pareado)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-auxiliar-a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">Experimento auxiliar: ¿a partir de qué volumen PySpark supera a scikit-learn?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#experimento-auxiliar-efecto-de-las-condiciones-obligatorias-de-spark">Experimento auxiliar: efecto de las condiciones obligatorias de Spark</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reflexion-critica">Reflexión crítica</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-entorno-fue-mas-rapido-y-por-que">¿Qué entorno fue más rápido y por qué?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cual-fue-mas-preciso">¿Cuál fue más preciso?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-diferencias-de-auc-son-significativas-tras-holm-y-cuales-son-relevantes">¿Qué diferencias de AUC son significativas tras Holm y cuáles son relevantes?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-diferencias-de-implementacion-explican-las-discrepancias">¿Qué diferencias de implementación explican las discrepancias?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-de-delong-y-complemento-de-mcnemar-y-bootstrap-coinciden">Limitaciones de DeLong y complemento de McNemar y bootstrap. ¿Coinciden?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-partir-de-que-volumen-pyspark-supera-a-scikit-learn">¿A partir de qué volumen PySpark supera a scikit-learn?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-aporta-lime-y-cuales-son-sus-limitaciones-en-entornos-distribuidos">¿Qué aporta LIME y cuáles son sus limitaciones en entornos distribuidos?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-efecto-tuvo-cada-condicion-obligatoria-en-el-rendimiento">¿Qué efecto tuvo cada condición obligatoria en el rendimiento?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniel Serrano Romero
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
