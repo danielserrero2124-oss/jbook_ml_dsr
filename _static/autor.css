@@ -1,0 +1,24 @@
+/* Estilos de la tarjeta del autor en la barra lateral */
+.tarjeta-autor {
+  text-align: center;          /* Centra foto y textos */
+  padding: 0.75rem 0 1rem;     /* Espacio vertical alrededor de la tarjeta */
+  margin-bottom: 0.5rem;       /* Separación con el buscador */
+  border-bottom: 1px solid var(--pst-color-border);  /* Línea divisoria (se adapta al modo claro/oscuro) */
+}
+.tarjeta-autor__foto {
+  width: 120px;                /* Tamaño de la foto */
+  height: 120px;
+  object-fit: cover;           /* Recorta sin deformar */
+  object-position: top;        /* Prioriza la parte superior (el rostro) */
+  border-radius: 50%;          /* Foto circular */
+  border: 3px solid var(--pst-color-primary);  /* Borde con el color principal del tema */
+}
+.tarjeta-autor__nombre {
+  font-weight: 700;            /* Nombre en negrita */
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+.tarjeta-autor__detalle {
+  font-size: 0.8rem;           /* Texto secundario más pequeño */
+  color: var(--pst-color-text-muted);
+}

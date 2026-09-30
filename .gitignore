@@ -1,0 +1,19 @@
+# Datos y artefactos pesados que se regeneran al ejecutar los notebooks (no se suben a GitHub)
+data/
+outputs/modelos_sklearn/
+outputs/scores_sklearn/
+outputs/scores_pyspark/
+outputs/logs/
+
+# Libro construido: se publica aparte en la rama gh-pages con ghp-import
+_build/
+
+# Archivos temporales de Python, Jupyter y del editor
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.claude/
+
+# Dataset original (nunca debe subirse: pesa ~390 MB)
+*.csv
+*.csv.gz

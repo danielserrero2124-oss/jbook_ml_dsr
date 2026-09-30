@@ -1,0 +1,16 @@
+# Versiones probadas en el entorno ml_venv (Python 3.9)
+numpy==1.25.2  # Cálculo numérico
+pandas==2.1.0  # Manipulación de datos
+scipy==1.11.2  # Pruebas estadísticas
+scikit-learn==1.3.0  # Modelos de scikit-learn
+matplotlib==3.7.2  # Gráficos
+seaborn==0.12.2  # Gráficos estadísticos
+missingno  # Visualización de valores faltantes
+statsmodels==0.14.4  # McNemar y corrección de Holm
+lime  # Interpretabilidad local
+pyspark==3.5.3  # Modelos distribuidos (requiere Java 11/17/21)
+pyarrow==17.0.0  # Lectura/escritura de Parquet
+joblib  # Paralelización y serialización
+psutil  # Información del hardware
+jupyter-book==1.0.4.post1  # Construcción del libro
+nbconvert  # Ejecución de notebooks

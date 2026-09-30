@@ -1,0 +1,14 @@
+{
+  "sklearn": {
+    "lectura_csv": 21.665446043014526,
+    "construccion_variables": 2.339240074157715,
+    "particion": 0.5838937759399414,
+    "ajuste_y_transformacion": 4.716569900512695,
+    "total": 29.305149793624878
+  },
+  "pyspark": {
+    "lectura_y_construccion": 25.027233600616455,
+    "ajuste_y_transformacion": 13.166070222854614,
+    "total": 38.19330382347107
+  }
+}

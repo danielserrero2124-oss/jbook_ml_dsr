@@ -1,0 +1,11 @@
+# Tabla de contenido del Jupyter Book
+format: jb-book  # Formato de libro
+root: intro  # Página de inicio (intro.md)
+chapters:
+  - file: notebooks/01_eda  # Análisis exploratorio
+  - file: notebooks/02_particion_preprocesamiento_sklearn  # Partición común y preprocesamiento sklearn
+  - file: notebooks/03_modelado_sklearn  # Modelado con scikit-learn
+  - file: notebooks/04_preprocesamiento_modelado_pyspark  # Preprocesamiento y modelado con PySpark
+  - file: notebooks/05_comparacion_estadistica  # DeLong, McNemar, bootstrap
+  - file: notebooks/06_lime  # Interpretabilidad con LIME
+  - file: notebooks/07_comparacion_resultados  # Comparación final y reflexión crítica

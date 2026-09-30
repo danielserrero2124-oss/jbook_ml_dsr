@@ -1,0 +1,36 @@
+# Configuración del Jupyter Book
+title: "Proyecto Integrador de Aprendizaje Automático – Lending Club"  # Título del libro
+author: "Daniel Serrano Romero"  # Autor
+copyright: "2026"  # Año
+logo: "images/logoUN.png"  # Logo de la universidad (arriba en la barra lateral)
+favicon: "images/logoUN.png"  # Icono de la pestaña del navegador
+
+exclude_patterns: ["README.md", "_build", "data", "outputs", "fuentes", "herramientas", "src", "images"]  # Archivos que no forman parte del libro
+
+execute:
+  execute_notebooks: "off"  # Los notebooks ya se ejecutaron (el cómputo tarda horas); se publican con sus salidas
+
+parse:
+  myst_enable_extensions:  # Extensiones de MyST para el texto
+    - dollarmath  # Fórmulas con $...$
+    - amsmath  # Entornos matemáticos
+    - colon_fence  # Bloques ::: de admoniciones
+
+repository:
+  url: https://github.com/danielserrero2124-oss/jbook_ml_dsr  # Repositorio con el código fuente
+  branch: main  # Rama principal
+
+html:
+  use_repository_button: true  # Botón que enlaza al repositorio de GitHub
+  home_page_in_navbar: true  # La portada aparece en la barra lateral
+
+sphinx:
+  config:
+    language: es  # Idioma del libro
+    html_show_copyright: true  # Muestra el copyright
+    suppress_warnings: ["mystnb.unknown_mime_type"]  # Oculta avisos por salidas HTML de LIME
+    templates_path: ["_templates"]  # Plantillas propias (tarjeta del autor)
+    html_static_path: ["_static"]  # Archivos estáticos propios (foto y estilos)
+    html_css_files: ["autor.css"]  # Estilos de la tarjeta del autor
+    html_sidebars:  # Contenido de la barra lateral izquierda en todas las páginas
+      "**": ["navbar-logo.html", "autor.html", "search-button-field.html", "sbt-sidebar-nav.html"]  # Logo, foto, buscador e índice

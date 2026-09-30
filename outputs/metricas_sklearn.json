@@ -1,0 +1,283 @@
+{
+  "hardware": {
+    "sistema": "Windows 10",
+    "procesador": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "nucleos_fisicos": 6,
+    "nucleos_logicos": 12,
+    "ram_total_gb": 13.8,
+    "ram_disponible_gb": 6.2,
+    "python": "3.9.25"
+  },
+  "modelos": {
+    "LogisticRegression": {
+      "mejores_parametros": {
+        "C": 0.009291538753149831
+      },
+      "auc_cv": 0.7120377608296896,
+      "tiempo_entrenamiento_s": 63.33873152732849,
+      "tiempo_prediccion_s": 0.14189600944519043,
+      "metricas": {
+        "accuracy": 0.8027926648876467,
+        "precision": 0.552205292702486,
+        "recall": 0.06410113196306226,
+        "f1": 0.11486813351794087,
+        "roc_auc": 0.714101556018671,
+        "matriz_confusion": [
+          [
+            212558,
+            2792
+          ],
+          [
+            50269,
+            3443
+          ]
+        ]
+      },
+      "umbral": 0.21424076215811882,
+      "f1_train_umbral": 0.4316476558439804,
+      "metricas_umbral": {
+        "accuracy": 0.6676974080323494,
+        "precision": 0.3274725487163625,
+        "recall": 0.6307529043789097,
+        "f1": 0.4311182938002646,
+        "roc_auc": 0.714101556018671,
+        "matriz_confusion": [
+          [
+            145773,
+            69577
+          ],
+          [
+            19833,
+            33879
+          ]
+        ]
+      },
+      "n_iter": 161
+    },
+    "DecisionTree": {
+      "mejores_parametros": {
+        "max_depth": 10
+      },
+      "auc_cv": 0.6960192242713497,
+      "tiempo_entrenamiento_s": 36.68520379066467,
+      "tiempo_prediccion_s": 0.09386515617370605,
+      "metricas": {
+        "accuracy": 0.8015736150032334,
+        "precision": 0.5239011395589759,
+        "recall": 0.06590705987488829,
+        "f1": 0.11708478724635762,
+        "roc_auc": 0.7042624702953585,
+        "matriz_confusion": [
+          [
+            212133,
+            3217
+          ],
+          [
+            50172,
+            3540
+          ]
+        ]
+      },
+      "umbral": 0.2142099681866384,
+      "f1_train_umbral": 0.43262690008553517,
+      "metricas_umbral": {
+        "accuracy": 0.6683292326675636,
+        "precision": 0.324233669087527,
+        "recall": 0.6100871313672922,
+        "f1": 0.4234322707361512,
+        "roc_auc": 0.7042624702953585,
+        "matriz_confusion": [
+          [
+            147053,
+            68297
+          ],
+          [
+            20943,
+            32769
+          ]
+        ]
+      },
+      "n_iter": null
+    },
+    "RandomForest": {
+      "mejores_parametros": {
+        "max_depth": 15,
+        "n_estimators": 100
+      },
+      "auc_cv": 0.7118956503736001,
+      "tiempo_entrenamiento_s": 518.8967118263245,
+      "tiempo_prediccion_s": 5.360159397125244,
+      "metricas": {
+        "accuracy": 0.8026254171900901,
+        "precision": 0.5802436440677966,
+        "recall": 0.04079162943103962,
+        "f1": 0.07622460339549122,
+        "roc_auc": 0.7152755821985243,
+        "matriz_confusion": [
+          [
+            213765,
+            1585
+          ],
+          [
+            51521,
+            2191
+          ]
+        ]
+      },
+      "umbral": 0.24507361056180504,
+      "f1_train_umbral": 0.48544043204481124,
+      "metricas_umbral": {
+        "accuracy": 0.7140398867175595,
+        "precision": 0.35675435675435674,
+        "recall": 0.5385388739946381,
+        "f1": 0.4291914268545102,
+        "roc_auc": 0.7152755821985243,
+        "matriz_confusion": [
+          [
+            163195,
+            52155
+          ],
+          [
+            24786,
+            28926
+          ]
+        ]
+      },
+      "n_iter": null
+    },
+    "GradientBoosting": {
+      "mejores_parametros": {
+        "max_depth": 5,
+        "max_iter": 100
+      },
+      "auc_cv": 0.7165643597746638,
+      "tiempo_entrenamiento_s": 70.6158607006073,
+      "tiempo_prediccion_s": 1.4435505867004395,
+      "metricas": {
+        "accuracy": 0.8038667667675108,
+        "precision": 0.5709541062801933,
+        "recall": 0.07041257074769139,
+        "f1": 0.12536462476796606,
+        "roc_auc": 0.7207296599933368,
+        "matriz_confusion": [
+          [
+            212508,
+            2842
+          ],
+          [
+            49930,
+            3782
+          ]
+        ]
+      },
+      "umbral": 0.21467602187416368,
+      "f1_train_umbral": 0.44001083644186395,
+      "metricas_umbral": {
+        "accuracy": 0.6743278500865971,
+        "precision": 0.33397626693820004,
+        "recall": 0.6350722371164731,
+        "f1": 0.43774703557312256,
+        "roc_auc": 0.7207296599933368,
+        "matriz_confusion": [
+          [
+            147325,
+            68025
+          ],
+          [
+            19601,
+            34111
+          ]
+        ]
+      },
+      "n_iter": 100
+    },
+    "LinearSVC": {
+      "mejores_parametros": {
+        "C": 0.9291538753149833
+      },
+      "auc_cv": 0.5479092316127856,
+      "tiempo_entrenamiento_s": 3549.4393694400787,
+      "tiempo_prediccion_s": 0.14567995071411133,
+      "metricas": {
+        "accuracy": 0.8002727995777925,
+        "precision": 0.4923771880293619,
+        "recall": 0.016234733392910337,
+        "f1": 0.03143305156534434,
+        "roc_auc": 0.529334384161287,
+        "matriz_confusion": [
+          [
+            214451,
+            899
+          ],
+          [
+            52840,
+            872
+          ]
+        ]
+      },
+      "umbral": -1.0000048508500157,
+      "f1_train_umbral": 0.3325703325703326,
+      "metricas_umbral": {
+        "accuracy": 0.20258156112717515,
+        "precision": 0.19960929766960628,
+        "recall": 0.9949359547214776,
+        "f1": 0.33250890537744804,
+        "roc_auc": 0.529334384161287,
+        "matriz_confusion": [
+          [
+            1067,
+            214283
+          ],
+          [
+            272,
+            53440
+          ]
+        ]
+      },
+      "n_iter": 5000
+    },
+    "NaiveBayes": {
+      "mejores_parametros": {},
+      "auc_cv": 0.6747898052984622,
+      "tiempo_entrenamiento_s": 3.6361446380615234,
+      "tiempo_prediccion_s": 0.532383918762207,
+      "metricas": {
+        "accuracy": 0.7206331626167947,
+        "precision": 0.34251361627787485,
+        "recall": 0.4343722073279714,
+        "f1": 0.3830122548818426,
+        "roc_auc": 0.6791536117192267,
+        "matriz_confusion": [
+          [
+            170564,
+            44786
+          ],
+          [
+            30381,
+            23331
+          ]
+        ]
+      },
+      "umbral": 0.07388591106771411,
+      "f1_train_umbral": 0.41033649236776504,
+      "metricas_umbral": {
+        "accuracy": 0.6228713084716534,
+        "precision": 0.2978557702889165,
+        "recall": 0.6550863866547513,
+        "f1": 0.4095133348463423,
+        "roc_auc": 0.6791536117192267,
+        "matriz_confusion": [
+          [
+            132405,
+            82945
+          ],
+          [
+            18526,
+            35186
+          ]
+        ]
+      },
+      "n_iter": null
+    }
+  }
+}
