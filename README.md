@@ -12,6 +12,7 @@ proyecto_integrador_ml/
 ├── intro.md, _config.yml, _toc.yml   # Jupyter Book
 ├── fuentes/        # Código fuente de cada notebook (formato "percent", fácil de leer/editar)
 ├── notebooks/      # Notebooks ejecutados (con salidas) que forman el libro
+├── entrega/        # Notebook único compilado (portada + 7 notebooks) para adjuntar en la plataforma
 ├── src/            # Módulos reutilizables
 │   ├── config.py            # Rutas, semilla, variables, espacios de búsqueda
 │   ├── preparacion.py       # Construcción de variables con pandas
@@ -21,6 +22,7 @@ proyecto_integrador_ml/
 │   ├── lime_utils.py        # Espacio de explicación de LIME compartido por los notebooks 04 y 06
 │   └── utilidades.py        # Hardware, cronómetro, JSON, figuras
 ├── herramientas/
+│   ├── compilar_ipynb.py          # Une portada + 7 notebooks en entrega/*.ipynb (archivo para adjuntar)
 │   ├── construir_notebooks.py     # fuentes/*.py → notebooks/*.ipynb (conserva salidas si el código no cambió)
 │   ├── ejecutar.sh                # Construye y ejecuta notebooks
 │   └── ejecutar_sin_suspender.ps1 # Igual, pero impide que Windows suspenda el equipo mientras corre
